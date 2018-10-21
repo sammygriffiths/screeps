@@ -3,7 +3,8 @@ module.exports = (base_directory, branch) => {
         options: {
             args: ["--verbose", "--checksum"],
             exclude: [".git*"],
-            recursive: true
+            recursive: true,
+            delete: true
         },
         dist: {
             options: {
