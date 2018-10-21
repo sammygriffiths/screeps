@@ -1,4 +1,4 @@
-module.exports = (directory) => {
+module.exports = (base_directory, branch) => {
     return {
         options: {
             args: ["--verbose", "--checksum"],
@@ -8,7 +8,7 @@ module.exports = (directory) => {
         dist: {
             options: {
                 src: './dist/',
-                dest: directory,
+                dest: base_directory + branch,
             }
         },
     }

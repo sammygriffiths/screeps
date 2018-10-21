@@ -13,7 +13,7 @@ module.exports = {
                 filter: 'isFile',
                 rename: (dest, src) => {
                     // Change the path name utilize underscores for folders
-                    return dest + src.replace(/\//g, '_');
+                    return dest + src.replace('/', '_');
                 }
             }],
         }
