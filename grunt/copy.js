@@ -8,12 +8,12 @@ module.exports = {
             files: [{
                 expand: true,
                 cwd: 'src/',
-                src: '**',
+                src: '**/*.js',
                 dest: 'dist/',
                 filter: 'isFile',
                 rename: (dest, src) => {
                     // Change the path name utilize underscores for folders
-                    return dest + src.replace('/', '_');
+                    return dest + src.replace(/\//g, '_');
                 }
             }],
         }
