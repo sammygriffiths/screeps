@@ -1,33 +1,29 @@
 const roles = require('roles_index');
+const utilities = require('utilities_index');
 
 module.exports.loop = () => {
-    for(let name in Memory.creeps) {
-        if(!Game.creeps[name]) {
-            delete Memory.creeps[name];
-            console.log('Clearing non-existing creep memory:', name);
-        }
-    }
+    utilities.clearNames();
 
     let harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     let builder    = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
     let upgrader   = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
 
     if(harvesters.length < 3) {
-        let newName = 'Harvester' + Game.time;
+        let newName = utilities.generateName('Harvester');
         console.log('Spawning new harvester: ' + newName);
         Game.spawns['Home'].spawnCreep([WORK,CARRY,MOVE], newName,
             {memory: {role: 'harvester'}});
     }
 
     if (builder.length < 3) {
-        let newName = 'Builder' + Game.time;
+        let newName = utilities.generateName('Builder');
         console.log('Spawning new builder: ' + newName);
         Game.spawns['Home'].spawnCreep([WORK,CARRY,MOVE], newName,
             { memory: { role: 'builder'}});
     }
 
     if (upgrader.length < 3) {
-        let newName = 'Upgrader' + Game.time;
+        let newName = utilities.generateName('Upgrader');
         console.log('Spawning new upgrader: ' + newName);
         Game.spawns['Home'].spawnCreep([WORK,CARRY,MOVE], newName,
             { memory: { role: 'upgrader'}});
