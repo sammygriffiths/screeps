@@ -32,7 +32,10 @@ const firstNames = [
     'Martin',
     'Richard',
     'Ulrich',
-    'Tony'
+    'Tony',
+    'Doris',
+    'Kevin',
+    'Debbie'
 ];
 
 const surnames = [
