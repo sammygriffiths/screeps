@@ -1,4 +1,4 @@
-const roleHarvester = require('roles_harvester');
+const roleUpgrader = require('roles_upgrader');
 
 let roleBuilder = {
 
@@ -21,7 +21,7 @@ let roleBuilder = {
                     creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
                 }
             } else {
-                roleHarvester.run(creep);
+                roleUpgrader.run(creep);
             }
         }
         else {

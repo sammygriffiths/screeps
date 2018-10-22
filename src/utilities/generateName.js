@@ -1,3 +1,19 @@
+const titles = [
+    'Dr.',
+    'Reverend',
+    'HRH',
+    'Lord',
+    'Lady',
+    'Sir',
+    'Dame',
+    'Baroness',
+    'Baron',
+    'Father',
+    'Sister',
+    'King',
+    'Queen'
+];
+
 const firstNames = [
     'Barry',
     'Sophie',
@@ -13,7 +29,10 @@ const firstNames = [
     'Victoria',
     'Sammy',
     'Olga',
-    'Martin'
+    'Martin',
+    'Richard',
+    'Ulrich',
+    'Tony'
 ];
 
 const surnames = [
@@ -33,7 +52,10 @@ const surnames = [
     'Potter',
     'Snape',
     'Fnip',
-    'Thwomp'
+    'Thwomp',
+    'Arse',
+    'von Liechtenstein',
+    'Inchpractice'
 ];
 
 module.exports = (role) => {
@@ -50,6 +72,12 @@ module.exports = (role) => {
         }
 
         name = firstName + ' ' + surname + ' (' + role + ')';
+
+        let title = Math.floor(Math.random() * 4) === 1;
+        if (title) {
+            name = titles[Math.floor(Math.random() * titles.length)] + ' ' + name;
+        }
+
         nameTaken = Game.creeps[name] !== undefined;
     } while (nameTaken);
 

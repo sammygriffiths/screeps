@@ -29,7 +29,7 @@ module.exports = () => {
     let currentNumbers = creepManager.getCurrentNumbers();
 
     Object.keys(currentNumbers).forEach((role) => {
-        if (currentNumbers[role] < 3) {
+        if (currentNumbers[role] < 4) {
             creepManager.spawn(role);
         }
     });
