@@ -1,7 +1,7 @@
 let roles = {};
 
-for (let i = 0; i < CREEP_ROLES.length; i++) {
-    roles[CREEP_ROLES[i]] = require('roles_' + CREEP_ROLES[i]);
-}
+Object.keys(CREEP_ROLES).forEach((role) => {
+    roles[role] = require('roles_' + role);
+});
 
 module.exports = roles
