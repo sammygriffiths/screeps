@@ -1,5 +1,7 @@
-module.exports = {
-    harvester: require('roles_harvester'),
-    upgrader: require('roles_upgrader'),
-    builder: require('roles_builder')
+let roles = {};
+
+for (let i = 0; i < CREEP_ROLES.length; i++) {
+    roles[CREEP_ROLES[i]] = require('roles_' + CREEP_ROLES[i]);
 }
+
+module.exports = roles
