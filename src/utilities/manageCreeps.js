@@ -21,6 +21,14 @@ let creepManager = {
             let creep = Game.creeps[name];
             roles[creep.memory.role].run(creep);
         }
+    },
+    clearExpiredCreeps: () => {
+        for (let name in Memory.creeps) {
+            if (!Game.creeps[name]) {
+                delete Memory.creeps[name];
+                console.log(name + '\'s dead, Jim');
+            }
+        }
     }
 };
 
@@ -33,5 +41,6 @@ module.exports = () => {
         }
     });
 
+    creepManager.clearExpiredCreeps();
     creepManager.run();
 };

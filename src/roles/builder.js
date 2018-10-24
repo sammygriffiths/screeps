@@ -23,11 +23,18 @@ let roleBuilder = {
             } else {
                 roleUpgrader.run(creep);
             }
-        }
-        else {
-            let sources = creep.room.find(FIND_SOURCES);
-            if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
+        } else {
+            let targets = creep.room.find(FIND_STRUCTURES, {
+                filter: (structure) => {
+                    return structure.structureType == STRUCTURE_CONTAINER && structure.energy > 0;
+                }
+            });
+
+            if (targets.length) {
+                let target = targets[Math.floor(Math.random() * targets.length)];
+                if (creep.withdraw(target) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target, { visualizePathStyle: { stroke: '#ffaa00' } });
+                }
             }
         }
     }

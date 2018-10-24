@@ -7,6 +7,10 @@ let roleHauler = {
 
         let currentJob = (creep.memory.withdrawing) ? 'withdraw' : 'transfer';
 
+        if (creep.saying != currentJob) {
+            creep.say(currentJob);
+        }
+
         if (creep[currentJob](target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
             creep.moveTo(target, { visualizePathStyle: { stroke: '#ffffff' } });
         }

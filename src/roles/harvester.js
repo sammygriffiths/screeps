@@ -3,11 +3,25 @@ let roleHarvester = {
         if (!creep.memory.targetID) {
             creep.memory.targetID = roleHarvester.getTargetID(creep);
         }
+        
+        if (creep.memory.targetID === -1) {
+            return creep.suicide(); // If a creep has -1 for a target ID that means it's unneeded.
+        }
 
-        let target = Game.getObjectById(creep.memory.targetID);
-
-        if (creep.harvest(target) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(target, { visualizePathStyle: { stroke: '#ffaa00' } });
+        creep.memory.repairing = roleHarvester.isRepairing(creep);
+        if (creep.memory.repairing) {
+            let container = roleHarvester.getClosestContainer(creep);
+            if (creep.repair(container) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(container);
+            }
+        } else {
+            let target = Game.getObjectById(creep.memory.targetID);
+    
+            let currentJob = (creep.memory.repairing) ? 'repair' : 'harvest';
+    
+            if (creep[currentJob](target) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(target, { visualizePathStyle: { stroke: '#ffaa00' } });
+            }
         }
     },
     getTargetID: (creep) => {
@@ -19,7 +33,25 @@ let roleHarvester = {
             targets = _.filter(targets, (target) => harvester.memory.targetID != target.id);
         }
 
-        return targets[0];
+        if (!targets[0]) {
+            return -1;
+        }
+
+        return targets[0].id;
+    },
+    getClosestContainer: (creep) => {
+        let targets = creep.room.find(FIND_STRUCTURES, {
+            filter: (structure) => {
+                return structure.structureType == STRUCTURE_CONTAINER;
+            }
+        });
+
+        let closestTargets = _.sortBy(targets, target => creep.pos.getRangeTo(target));
+        return closestTargets[0];
+    },
+    isRepairing: (creep) => {
+        let container = roleHarvester.getClosestContainer(creep);
+        return container[0].hits < (container[0].hitsMax / 1.5);
     }
 };
 
