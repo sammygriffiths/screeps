@@ -9,19 +9,21 @@ let roleHarvester = {
         }
 
         creep.memory.repairing = roleHarvester.isRepairing(creep);
+
+        let currentJob = (creep.memory.repairing) ? 'repair' : 'harvest';
+
+        if (creep.saying != currentJob) {
+            creep.say(currentJob);
+        }
+        
+        let target = Game.getObjectById(creep.memory.targetID);
+
         if (creep.memory.repairing) {
-            let container = roleHarvester.getClosestContainer(creep);
-            if (creep.repair(container) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(container);
-            }
-        } else {
-            let target = Game.getObjectById(creep.memory.targetID);
-    
-            let currentJob = (creep.memory.repairing) ? 'repair' : 'harvest';
-    
-            if (creep[currentJob](target) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(target, { visualizePathStyle: { stroke: '#ffaa00' } });
-            }
+            target = roleHarvester.getClosestContainer(creep);
+        }
+        
+        if (creep[currentJob](target) == ERR_NOT_IN_RANGE) {
+            creep.moveTo(target, { visualizePathStyle: { stroke: '#ffaa00' } });
         }
     },
     getTargetID: (creep) => {
@@ -51,7 +53,9 @@ let roleHarvester = {
     },
     isRepairing: (creep) => {
         let container = roleHarvester.getClosestContainer(creep);
-        return container[0].hits < (container[0].hitsMax / 1.5);
+        let needsRepairing = container.hits < (container.hitsMax / 1.5);
+        let shouldRepair = (creep.carry.energy == creep.carryCapacity) || creep.memory.repairing;
+        return needsRepairing && shouldRepair;
     }
 };
 
