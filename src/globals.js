@@ -2,7 +2,7 @@ module.exports = () => {
     global.CREEP_ROLES = {
         'harvester': {
             required: 4,
-            body: [MOVE, WORK, WORK, CARRY]
+            body: [MOVE, MOVE, WORK, WORK, CARRY]
         },
         'upgrader': {
             required: 3,
