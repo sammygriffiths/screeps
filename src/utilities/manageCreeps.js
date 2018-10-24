@@ -13,7 +13,7 @@ let creepManager = {
     spawn: (role) => {
         let newName = generateName(role);
         console.log('Spawning new ' + role + ': ' + newName);
-        return Game.spawns['Home'].spawnCreep([WORK, CARRY, MOVE], newName,
+        return Game.spawns['Home'].spawnCreep(CREEP_ROLES[role].body, newName,
             { memory: { role: role } });
     },
     run: () => {

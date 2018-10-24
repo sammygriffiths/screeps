@@ -9,8 +9,8 @@ module.exports = () => {
             body: [MOVE, WORK, CARRY]
         },
         'builder': {
-            required: 2,
-            body: [MOVE, WORK, CARRY]
+            required: 1,
+            body: [MOVE, WORK, WORK, CARRY]
         },
         'repairer': {
             required: 1,
